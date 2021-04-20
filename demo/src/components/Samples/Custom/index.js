@@ -84,8 +84,17 @@ function renderContent ({ annotation }) {
 }
 
 function renderEditor (props) {
-  const { geometry } = props.annotation
+  const { geometry, zoom } = props.annotation
   if (!geometry) return null
+
+  let left = geometry.x;
+  let top = geometry.y + geometry.height;
+
+  if (zoom)
+  {
+    left = zoom.geometry.x;
+    top = zoom.geometry.y + zoom.geometry.height;
+  }
 
   return (
     <div
@@ -93,8 +102,8 @@ function renderEditor (props) {
         background: 'white',
         borderRadius: 3,
         position: 'absolute',
-        left: `${geometry.x}%`,
-        top: `${geometry.y + geometry.height}%`,
+        left: `${left}%`,
+        top: `${top}%`,
       }}
     >
       <div>Custom Editor</div>
@@ -180,6 +189,7 @@ export default class Custom extends Component {
           renderHighlight={renderHighlight}
           renderContent={renderContent}
           renderOverlay={renderOverlay}
+          disableZoom={false}
         />
       </div>
     )

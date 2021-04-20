@@ -29,16 +29,25 @@ const Container = styled.div`
 `
 
 function Editor (props) {
-  const { geometry } = props.annotation
+  const { geometry, zoom } = props.annotation
   if (!geometry) return null
 
+  let left = geometry.x;
+  let top = geometry.y + geometry.height;
+
+  if (zoom)
+  {
+    left = zoom.geometry.x;
+    top = zoom.geometry.y + zoom.geometry.height;
+  }
+
   return (
-    <Container
+    <Container    
       className={props.className}
       style={{
         position: 'absolute',
-        left: `${geometry.x}%`,
-        top: `${geometry.y + geometry.height}%`,
+        left: `${left}%`,
+        top: `${top}%`,
         ...props.style
       }}
     >

@@ -8,6 +8,8 @@ import withRelativeMousePos from '../utils/withRelativeMousePos'
 import defaultProps from './defaultProps'
 import Overlay from './Overlay'
 
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+
 const Container = styled.div`
   clear: both;
   position: relative;
@@ -84,7 +86,8 @@ export default compose(
 
     disableOverlay: T.bool,
     renderOverlay: T.func.isRequired,
-    allowTouch: T.bool
+    allowTouch: T.bool,
+    disableZoom: T.bool
   }
 
   static defaultProps = defaultProps
@@ -101,12 +104,12 @@ export default compose(
     // so we need to call preventDefault ourselves to stop touch from scrolling
     // Event handlers must be set via ref to enable e.preventDefault()
     // https://github.com/facebook/react/issues/9809
-    
+
     this.targetRef.current.ontouchstart = this.onTouchStart;
     this.targetRef.current.ontouchend = this.onTouchEnd;
     this.targetRef.current.ontouchmove = this.onTargetTouchMove;
     this.targetRef.current.ontouchcancel = this.onTargetTouchLeave;
-    
+
   }
   removeTargetTouchEventListeners = () => {
     this.targetRef.current.ontouchstart = undefined;
@@ -228,7 +231,7 @@ export default compose(
   }
 
   
-
+  
   render () {
     const { props } = this
     const {
@@ -239,7 +242,8 @@ export default compose(
       renderSelector,
       renderEditor,
       renderOverlay,
-      allowTouch
+      allowTouch,
+      disableZoom
     } = props
 
     const topAnnotationAtMouse = this.getTopAnnotationAt(
@@ -247,76 +251,126 @@ export default compose(
       this.props.relativeMousePos.y
     )
 
-    return (
-      <Container
-        style={props.style}
-        innerRef={isMouseHovering.innerRef}
-        onMouseLeave={this.onTargetMouseLeave}
-        onTouchCancel={this.onTargetTouchLeave}
-        allowTouch={allowTouch}
-      >
-        <Img
-          className={props.className}
-          style={props.style}
-          alt={props.alt}
-          src={props.src}
-          draggable={false}
-          innerRef={this.setInnerRef}
-        />
-        <Items>
-          {props.annotations.map(annotation => (
-            renderHighlight({
-              key: annotation.data.id,
-              annotation,
-              active: this.shouldAnnotationBeActive(annotation, topAnnotationAtMouse)
-            })
-          ))}
-          {!props.disableSelector
-            && props.value
-            && props.value.geometry
-            && (
-              renderSelector({
-                annotation: props.value
-              })
-            )
+    const calculateZoomGeometry = (scale, positionX, positionY, geometry) => {
+      if (!geometry || (scale === 1 & positionX === 0 & positionY === 0)) return {};
+
+      const currentRef = this.targetRef.current;
+
+      // zoom geometry x
+      const currentClientWidth = currentRef.clientWidth * scale;
+      const currentGeometryX = currentClientWidth * geometry.x / 100;
+      const geometryX = currentGeometryX + positionX;
+      const x = 100 * geometryX / currentRef.clientWidth;
+    
+      // zoom geometry y
+      const currentClientHeight = currentRef.clientHeight * scale;
+      const currentGeometryY = currentClientHeight * geometry.y / 100;
+      const geometryY = currentGeometryY + positionY;
+      const y = 100 * geometryY / currentRef.clientHeight;
+
+      return {
+        zoom: {
+          geometry: {
+            x: x,
+            y: y,
+            height: geometry.height * scale,
+            width: geometry.width * scale
           }
-        </Items>
-        <Target
-          innerRef={this.targetRef}
-          onClick={this.onClick}
-          onMouseUp={this.onMouseUp}
-          onMouseDown={this.onMouseDown}
-          onMouseMove={this.onTargetMouseMove}
-        />
-        {!props.disableOverlay && (
-          renderOverlay({
-            type: props.type,
-            annotation: props.value
-          })
-        )}
-        {props.annotations.map(annotation => (
-          this.shouldAnnotationBeActive(annotation, topAnnotationAtMouse)
-          && (
-            renderContent({
-              key: annotation.data.id,
-              annotation: annotation
-            })
-          )
-        ))}
-        {!props.disableEditor
-          && props.value
-          && props.value.selection
-          && props.value.selection.showEditor
-          && (
-            renderEditor({
-              annotation: props.value,
-              onChange: props.onChange,
-              onSubmit: this.onSubmit
-            })
-          )
         }
-        <div>{props.children}</div>
-      </Container>
+      }
+    }
+
+    return (
+      <TransformWrapper
+        defaultScale={1}
+        defaultPositionX={0}
+        defaultPositionY={0}
+        options={{
+          disabled: disableZoom || props.value.selection
+        }}
+        pan={{ lockAxisX: true, lockAxisY: true }}
+      >
+
+        {({
+          positionX,
+          positionY,
+          scale,
+        }) => (
+          <React.Fragment>
+            <Container
+              style={props.style}
+              innerRef={isMouseHovering.innerRef}
+              onMouseLeave={this.onTargetMouseLeave}
+              onTouchCancel={this.onTargetTouchLeave}
+              allowTouch={allowTouch}
+            >
+              <TransformComponent>
+                <Img
+                  className={props.className}
+                  style={props.style}
+                  alt={props.alt}
+                  src={props.src}
+                  draggable={false}
+                  innerRef={this.setInnerRef}
+                />
+                <Items>
+                  {props.annotations.map(annotation => (
+                    renderHighlight({
+                      key: annotation.data.id,
+                      annotation,
+                      active: this.shouldAnnotationBeActive(annotation, topAnnotationAtMouse)
+                    })
+                  ))}
+                  {!props.disableSelector
+                    && props.value
+                    && props.value.geometry
+                    && (
+                      renderSelector({
+                        annotation: props.value
+                      })
+                    )
+                  }
+                </Items>
+                <Target
+                  innerRef={this.targetRef}
+                  onClick={this.onClick}
+                  onMouseUp={this.onMouseUp}
+                  onMouseDown={this.onMouseDown}
+                  onMouseMove={this.onTargetMouseMove}
+                />
+              </TransformComponent>
+              {!props.disableOverlay && (
+                renderOverlay({
+                  type: props.type,
+                  annotation: props.value
+                })
+              )}
+              {props.annotations.map(annotation => (
+                this.shouldAnnotationBeActive(annotation, topAnnotationAtMouse)
+                && (
+                  renderContent({
+                    key: annotation.data.id,
+                    annotation: annotation
+                  })
+                )
+              ))}
+              {!props.disableEditor
+                && props.value
+                && props.value.selection
+                && props.value.selection.showEditor
+                && (
+                  renderEditor({
+                    annotation: { ...props.value, ...calculateZoomGeometry(scale, positionX, positionY, props.value.geometry) },
+                    onChange: props.onChange,
+                    onSubmit: this.onSubmit
+                  })
+                )
+              }
+              <div>{props.children}</div>
+            </Container>
+          </React.Fragment>
+        )}
+      </TransformWrapper>
     )
   }
 })
