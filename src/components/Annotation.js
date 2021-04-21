@@ -290,8 +290,9 @@ export default compose(
           disabled: disableZoom || props.value.selection
         }}
         pan={{ lockAxisX: !disableAnnotation, lockAxisY: !disableAnnotation }}
+        options={{wrapperClass: props.wrapperClass, contentClass: props.contentClass}}
       >
-
+        
         {({
           positionX,
           positionY,
