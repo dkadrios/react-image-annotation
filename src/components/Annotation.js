@@ -243,6 +243,7 @@ export default compose(
       renderEditor,
       renderOverlay,
       allowTouch,
+      disableAnnotation,
       disableZoom
     } = props
 
@@ -288,13 +289,14 @@ export default compose(
         options={{
           disabled: disableZoom || props.value.selection
         }}
-        pan={{ lockAxisX: true, lockAxisY: true }}
+        pan={{ lockAxisX: !disableAnnotation, lockAxisY: !disableAnnotation }}
       >
 
         {({
           positionX,
           positionY,
           scale,
+          resetTransform
         }) => (
           <React.Fragment>
             <Container
@@ -312,6 +314,8 @@ export default compose(
                   src={props.src}
                   draggable={false}
                   innerRef={this.setInnerRef}
+                  onLoad={resetTransform, props.onImageLoad}
+                  onError={props.onImageError}
                 />
                 <Items>
                   {props.annotations.map(annotation => (
