@@ -29,21 +29,31 @@ export default class Simple extends Component {
     })
   }
 
+  imageLoaded = () => {
+    console.log('Ready');
+  }
+
+  imageFailed = () => {
+    console.log('Failed');
+  }
+
   render () {
     return (
       <Root>
         <Annotation
           src={img}
           alt='Two pebbles anthropomorphized holding hands'
-
           annotations={this.state.annotations}
-
+          disableAnnotation={false}
+          disableOverlay={false}
           type={this.state.type}
           value={this.state.annotation}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
-          allowTouch
-        />
+          onImageLoad={this.imageLoaded}
+          onImageError={this.imageFailed}
+          allowTouch>
+        </Annotation>
       </Root>
     )
   }

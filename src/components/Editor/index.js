@@ -48,6 +48,7 @@ function Editor (props) {
         position: 'absolute',
         left: `${left}%`,
         top: `${top}%`,
+        zIndex: 100,
         ...props.style
       }}
     >

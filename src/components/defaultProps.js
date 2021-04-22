@@ -28,6 +28,7 @@ export default {
   disableSelector: false,
   disableEditor: false,
   disableOverlay: false,
+  disableZoom: false,
   activeAnnotationComparator: (a, b) => a === b,
   renderSelector: ({ annotation }) => {
     switch (annotation.geometry.type) {
