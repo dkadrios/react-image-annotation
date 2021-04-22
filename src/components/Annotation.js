@@ -309,7 +309,7 @@ export default compose(
               <TransformComponent>
                 <Img
                   className={props.className}
-                  style={props.style}
+                  style={props.imageStyle}
                   alt={props.alt}
                   src={props.src}
                   draggable={false}
