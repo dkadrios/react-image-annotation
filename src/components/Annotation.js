@@ -295,8 +295,7 @@ export default compose(
         {({
           positionX,
           positionY,
-          scale,
-          resetTransform
+          scale
         }) => (
           <React.Fragment>
             <Container
@@ -314,7 +313,7 @@ export default compose(
                   src={props.src}
                   draggable={false}
                   innerRef={this.setInnerRef}
-                  onLoad={resetTransform, props.onImageLoad}
+                  onLoad={props.onImageLoad}
                   onError={props.onImageError}
                 />
                 <Items>
