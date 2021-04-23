@@ -1,4 +1,4 @@
-React Image Annotation
+React Image Annotation Plus Zoom
 =========================
 
 An infinitely customizable image annotation library built on React
@@ -8,9 +8,9 @@ An infinitely customizable image annotation library built on React
 ## Installation
 
 ```
-npm install --save react-image-annotation
+npm install --save react-image-annotation-plus-zoom
 # or
-yarn add react-image-annotation
+yarn add react-image-annotation-plus-zoom
 ```
 
 ## Usage
