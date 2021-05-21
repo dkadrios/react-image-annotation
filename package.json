@@ -23,26 +23,26 @@
   },
   "dependencies": {
     "react-zoom-pan-pinch": "^1.6.1",
-    "styled-components": "^3.1.6"
+    "styled-components": "^5.3.0"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
-    "react": "^16.3",
-    "react-dom": ">=0.14"
+    "react": ">=16.3.0",
+    "react-dom": ">=16.3.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "gh-pages": "^1.1.0",
-    "nwb": "0.21.x",
-    "raw-loader": "^0.5.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-syntax-highlighter": "^7.0.0",
-    "standard": "^10.0.3"
+    "gh-pages": "^3.1.0",
+    "nwb": "^0.25.2",
+    "raw-loader": "^4.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-syntax-highlighter": "^15.4.3",
+    "standard": "^16.0.3"
   },
   "standard": {
     "env": [
