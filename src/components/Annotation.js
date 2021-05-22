@@ -109,7 +109,7 @@ export default compose(
     this.targetRef.current.ontouchend = this.onTouchEnd;
     this.targetRef.current.ontouchmove = this.onTargetTouchMove;
     this.targetRef.current.ontouchcancel = this.onTargetTouchLeave;
-
+    
   }
   removeTargetTouchEventListeners = () => {
     this.targetRef.current.ontouchstart = undefined;
@@ -300,7 +300,7 @@ export default compose(
           <React.Fragment>
             <Container
               style={props.style}
-              innerRef={isMouseHovering.innerRef}
+              ref={isMouseHovering.innerRef}
               onMouseLeave={this.onTargetMouseLeave}
               onTouchCancel={this.onTargetTouchLeave}
               allowTouch={allowTouch}
@@ -312,7 +312,7 @@ export default compose(
                   alt={props.alt}
                   src={props.src}
                   draggable={false}
-                  innerRef={this.setInnerRef}
+                  ref={this.setInnerRef}
                   onLoad={props.onImageLoad}
                   onError={props.onImageError}
                 />
@@ -335,7 +335,7 @@ export default compose(
                   }
                 </Items>
                 <Target
-                  innerRef={this.targetRef}
+                  ref={this.targetRef}
                   onClick={this.onClick}
                   onMouseUp={this.onMouseUp}
                   onMouseDown={this.onMouseDown}

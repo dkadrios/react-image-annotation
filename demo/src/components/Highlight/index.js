@@ -1,6 +1,6 @@
 import React from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter/prism-light'
-import prism from 'react-syntax-highlighter/styles/prism/prism'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 
 export default (props) => (
   <SyntaxHighlighter language='jsx' style={prism}>

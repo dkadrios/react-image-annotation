@@ -4,10 +4,10 @@ import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 
-import { registerLanguage } from 'react-syntax-highlighter/prism-light'
-import jsx from 'react-syntax-highlighter/languages/prism/jsx'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
 
-registerLanguage('jsx', jsx)
+SyntaxHighlighter.registerLanguage('jsx', jsx);
 
 ReactDOM.render(<App />, document.getElementById('demo'))
 registerServiceWorker()
