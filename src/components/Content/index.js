@@ -28,7 +28,9 @@ function Content (props) {
       className={props.className}
       geometry={geometry}
     >
-      {props.annotation.data && props.annotation.data.text}
+      {String(props.annotation?.data?.text)
+        .split('\n')
+        .map((line, key) => <div key={key}>{line}</div>)}
     </Container>
   )
 }

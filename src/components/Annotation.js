@@ -87,7 +87,9 @@ export default compose(
     disableOverlay: T.bool,
     renderOverlay: T.func.isRequired,
     allowTouch: T.bool,
-    disableZoom: T.bool
+    disableZoom: T.bool,
+
+    imageProps:T.object
   }
 
   static defaultProps = defaultProps
@@ -109,7 +111,7 @@ export default compose(
     this.targetRef.current.ontouchend = this.onTouchEnd;
     this.targetRef.current.ontouchmove = this.onTargetTouchMove;
     this.targetRef.current.ontouchcancel = this.onTargetTouchLeave;
-    
+
   }
   removeTargetTouchEventListeners = () => {
     this.targetRef.current.ontouchstart = undefined;
@@ -230,13 +232,14 @@ export default compose(
     }
   }
 
-  
-  
+
+
   render () {
     const { props } = this
     const {
+      ImageComponent,
+      imageProps,
       isMouseHovering,
-
       renderHighlight,
       renderContent,
       renderSelector,
@@ -244,8 +247,9 @@ export default compose(
       renderOverlay,
       allowTouch,
       disableAnnotation,
-      disableZoom
+      disableZoom,
     } = props
+    const ImageRenderer = ImageComponent || Img
 
     const topAnnotationAtMouse = this.getTopAnnotationAt(
       this.props.relativeMousePos.x,
@@ -262,7 +266,7 @@ export default compose(
       const currentGeometryX = currentClientWidth * geometry.x / 100;
       const geometryX = currentGeometryX + positionX;
       const x = 100 * geometryX / currentRef.clientWidth;
-    
+
       // zoom geometry y
       const currentClientHeight = currentRef.clientHeight * scale;
       const currentGeometryY = currentClientHeight * geometry.y / 100;
@@ -306,11 +310,12 @@ export default compose(
               allowTouch={allowTouch}
             >
               <TransformComponent>
-                <Img
+                <ImageRenderer
                   className={props.className}
                   style={props.imageStyle}
                   alt={props.alt}
                   src={props.src}
+                  {...imageProps}
                   draggable={false}
                   ref={this.setInnerRef}
                   onLoad={props.onImageLoad}

@@ -1,5 +1,5 @@
 import {
-  RectangleSelector,
+  PointSelector,
   OvalSelector
 } from '../../src/selectors'
 
@@ -8,11 +8,11 @@ export default {
     {
       geometry:
       {
-        type: RectangleSelector.TYPE,
+        type: PointSelector.TYPE,
         x: 25,
         y: 31,
-        width: 21,
-        height: 35
+        width: 0,
+        height: 0
       },
       data: {
         text: 'Annotate!',
