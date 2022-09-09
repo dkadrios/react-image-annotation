@@ -17,6 +17,9 @@ const Container = styled.div`
   &:hover ${Overlay} {
     opacity: 1;
   }
+  &:hover .image-annotations-overlay {
+    opacity: 1;
+  }
   touch-action: ${(props) => (props.allowTouch ? "pinch-zoom" : "auto")};
 `
 
