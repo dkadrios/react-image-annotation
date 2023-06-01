@@ -1,6 +1,6 @@
 {
   "name": "@studysync/react-image-annotation",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "private": false,
   "description": "react-image-annotation-plus-zoom React component",
   "author": "Arian Allenson Valdez <arianallensonv@gmail.com> (http://arianv.com/)",
@@ -27,9 +27,9 @@
     "styled-components": "^5.3.0"
   },
   "peerDependencies": {
-    "prop-types": "^15",
-    "react": ">=18",
-    "react-dom": ">=18"
+    "prop-types": ">=15.8",
+    "react": ">=18.2",
+    "react-dom": ">=18.2"
   },
   "devDependencies": {
     "chai": "^4.1.2",
