@@ -23,8 +23,8 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "react-zoom-pan-pinch": "^1.6.1",
-    "styled-components": "^5.3.0"
+    "react-zoom-pan-pinch": "^3.6.1",
+    "styled-components": "^5.3.11"
   },
   "peerDependencies": {
     "prop-types": ">=15.8",
@@ -32,18 +32,18 @@
     "react-dom": ">=18.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "gh-pages": "^3.1.0",
+    "chai": "^4.5.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.8",
+    "gh-pages": "^3.2.3",
     "nwb": "^0.25.2",
     "raw-loader": "^4.0.2",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-syntax-highlighter": "^15.4.3",
-    "standard": "^16.0.3"
+    "react-router-dom": "^5.3.4",
+    "react-syntax-highlighter": "^15.6.1",
+    "standard": "^16.0.4"
   },
   "standard": {
     "env": [
