@@ -1,6 +1,6 @@
 {
   "name": "@studysync/react-image-annotation",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "private": false,
   "description": "react-image-annotation-plus-zoom React component",
   "author": "Arian Allenson Valdez <arianallensonv@gmail.com> (http://arianv.com/)",
@@ -23,27 +23,27 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "react-zoom-pan-pinch": "^1.6.1",
-    "styled-components": "^5.3.0"
+    "react-zoom-pan-pinch": "^3.7.0",
+    "styled-components": "^5.3.11"
   },
   "peerDependencies": {
-    "prop-types": ">=15.8",
+    "prop-types": ">=15.8.1",
     "react": ">=18.2",
     "react-dom": ">=18.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "gh-pages": "^3.1.0",
+    "chai": "^4.5.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.8",
+    "gh-pages": "^3.2.3",
     "nwb": "^0.25.2",
     "raw-loader": "^4.0.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-syntax-highlighter": "^15.4.3",
-    "standard": "^16.0.3"
+    "react-router": "^5.3.4",
+    "react-router-dom": "^5.3.4",
+    "react-syntax-highlighter": "^15.6.1",
+    "standard": "^17.1.2"
   },
   "standard": {
     "env": [
